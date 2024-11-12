@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Discente - e-Matrícula</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Instituição</a></li>
+            <li><a href="#">Docente</a></li>
+            <li><a href="#">Discente</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </div>
+    <div class="login-content">
+        <div class="login-box">
+            <h1>e-Matrícula</h1>
+            <p>Software para gerenciar matrículas alinhado ao Novo Ensino Médio, facilitando a organização curricular e a escolha de itinerários formativos</p>
+        </div>
+        <div class="login-form">
+            <h2>Login da(o) Discente</h2>
+            <form method="POST" action="#">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" name="matricula"  required>
+                
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+                
+                <div class="form-footer">
+                    <a href="#">Esqueci a senha</a> | <a href="#">Não possuo cadastro</a>
+                </div>
+                
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

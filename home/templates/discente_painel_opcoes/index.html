@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Opções - e-Matrícula</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Instituição</a></li>
+            <li><a href="#">Docente</a></li>
+            <li><a href="#">Discente</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header-bar">
+            <h2>Minhas Matrículas</h2>
+            <h2>Dados Cadastrais</h2>
+            <h2>SuporteTI</h2>
+        </div>
+        <div class="options-panel">
+            <div class="option-box">
+                <h3>Grade Horária</h3>
+                <img src="{% static 'home/grade_horaria.png' %}" alt="Grade Horária">
+                <p>Veja como está a sua Grade Horária!</p>
+            </div>
+            <div class="option-box">
+                <h3>Matérias Obrigatórias</h3>
+                <img src="{% static 'home/materias_obrigatorias.png' %}" alt="Matérias Obrigatórias">
+                <p>Consulte a disponibilidade de dias, horários e professores das Matérias Obrigatórias!</p>
+            </div>
+            <div class="option-box">
+                <h3>Itinerários Formativos</h3>
+                <img src="{% static 'home/itinerarios_formativos.png' %}" alt="Itinerários Formativos">
+                <p>Consulte a disponibilidade de dias, horários e professores dos Itinerários Formativos!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
