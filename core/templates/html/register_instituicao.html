@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Instituição - e-Matrícula</title>
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-box">
+            <h2>Registro de Instituição</h2>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_nome">Nome da Instituição:</label>
+                    {{ form.nome }}
+                </div>
+                <div class="form-group">
+                    <label for="id_endereco">Endereço:</label>
+                    {{ form.endereco }}
+                </div>
+                <div class="form-group">
+                    <label for="id_telefone">Telefone:</label>
+                    {{ form.telefone }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Senha:</label>
+                    {{ form.password }}
+                </div>
+                <div class="form-group">
+                    <label for="id_confirm_password">Confirmar Senha:</label>
+                    {{ form.confirm_password }}
+                </div>
+                <button type="submit">Registrar</button>
+            </form>
+            <div class="login-link">
+                <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

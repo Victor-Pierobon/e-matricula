@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - e-Matrícula</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Login</h2>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Usuário:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Senha:</label>
+                    {{ form.password }}
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+            <div class="register-links">
+                <p>Não tem uma conta? Registre-se como:</p>
+                <a href="{% url 'register_instituicao' %}">Instituição</a>
+                <a href="{% url 'register_docente' %}">Docente</a>
+                <a href="{% url 'register_discente' %}">Discente</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

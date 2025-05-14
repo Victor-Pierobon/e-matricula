@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Discente</title>
+    <link rel="stylesheet" href="/static/css/login-discente.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="{% url 'index' %}">  <img src="/static/assets/Icone Inicio2.png" alt="Inicio" class="ativar" cl></a></li>
+            <li><a href="{% url 'instituicao' %}"> <img src="/static/assets/Icone Instituição.png" alt="Instituição"></a></li>
+            <li><a href="{% url 'docente' %}"> <img src="/static/assets/Icone Docente.png" alt="Docente"></a></li>
+            <li><a href="{% url 'login_discente' %}" id="link-discente"><img src="/static/assets/Icone Discente.png" alt="Discente"></a></li>
+            <li><a href="#"><img src="/static/assets/Icone Sobre.png" alt="Sobre"></a></li>
+            <li><a href="#"><img src="/static/assets/Icone Contato.png" alt="Contato"></a></li>
+        </ul>
+    </div>
+    <div class="conteudo-principal">
+        <header>
+            <div class="conteiner">
+                <img class="logo" src="/static/assets/Logo .png" alt="Logo e-Matrícula">
+                <div class="texto">
+                    <h1>e-Matrícula</h1>
+                    <p>Software para gerenciar matrículas alinhado ao Novo Ensino Médio, facilitando a organização curricular e a escolha de itinerários formativos.</p>
+                </div>
+            </div>
+        </header>
+        <div class="login-box">
+            <h2>Login da(o) Discente</h2>
+        
+            <label for="matricula">Matrícula</label>
+            <input type="text" id="matricula" placeholder="Ex : xxxxxxxx">
+    
+            <label for="senha">Senha</label>
+            <input type="password" id="senha">
+    
+            <div class="links">
+                <a href="#">Esqueci à senha</a>
+                <span>|</span>
+                <a href="#">Não possuo cadastro</a>
+            </div>
+    
+            <button>Entrar</button>
+            
+        </div>
+    </div>
+    <div class="desenho">
+        <img src="/static/assets/Desenho.png" alt="desenho">
+    </div>
+</body>
+</html>
