@@ -1,0 +1,67 @@
+{% extends 'html/base.html' %}
+
+{% block title %}Minhas Aulas{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-1">Minhas Aulas</h1>
+            <p class="text-muted">Gerencie suas aulas e horários</p>
+        </div>
+        <div>
+            <a href="#" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Nova Aula
+            </a>
+        </div>
+    </div>
+
+    <!-- Lista de Aulas -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Componente</th>
+                            <th>Turma</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aula in aulas %}
+                        <tr>
+                            <td>{{ aula.data|date:"d/m/Y" }}</td>
+                            <td>{{ aula.horario_inicio|time:"H:i" }} - {{ aula.horario_fim|time:"H:i" }}</td>
+                            <td>{{ aula.componente.nome }}</td>
+                            <td>{{ aula.turma.nome }}</td>
+                            <td>
+                                <span class="badge bg-{{ aula.status_class }}">
+                                    {{ aula.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Nenhuma aula encontrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

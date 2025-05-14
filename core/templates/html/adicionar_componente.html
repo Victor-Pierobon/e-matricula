@@ -1,0 +1,70 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Adicionar Componente Curricular</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome do Componente</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="area" class="form-label">Área do Conhecimento</label>
+                            <select class="form-select" id="area" name="area" required>
+                                <option value="">Selecione uma área</option>
+                                {% for codigo, nome in areas %}
+                                <option value="{{ codigo }}">{{ nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <select class="form-select" id="tipo" name="tipo" required>
+                                <option value="">Selecione um tipo</option>
+                                {% for codigo, nome in tipos %}
+                                <option value="{{ codigo }}">{{ nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="carga_horaria" class="form-label">Carga Horária (horas)</label>
+                            <input type="number" class="form-control" id="carga_horaria" name="carga_horaria" required min="1">
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'gerenciar_componentes' %}" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informações Importantes</h5>
+                </div>
+                <div class="card-body">
+                    <p>A carga horária total do Ensino Médio deve ser distribuída da seguinte forma:</p>
+                    <ul>
+                        <li>60% para componentes da BNCC</li>
+                        <li>40% para Itinerários Formativos</li>
+                    </ul>
+                    <p>Certifique-se de que a soma das cargas horárias respeite essa distribuição.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

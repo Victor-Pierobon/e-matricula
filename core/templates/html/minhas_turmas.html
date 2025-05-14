@@ -1,0 +1,48 @@
+{% extends 'html/base.html' %}
+
+{% block title %}Minhas Turmas{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-1">Minhas Turmas</h1>
+            <p class="text-muted">Gerencie suas turmas e alunos</p>
+        </div>
+    </div>
+
+    <!-- Lista de Turmas -->
+    <div class="row g-4">
+        {% for turma in turmas %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ turma.nome }}</h5>
+                    <p class="card-text text-muted">{{ turma.componente.nome }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary">{{ turma.total_alunos }} alunos</span>
+                        <small class="text-muted">{{ turma.horario }}</small>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-outline-primary">
+                            <i class="fas fa-users me-2"></i>Ver Alunos
+                        </a>
+                        <a href="#" class="btn btn-outline-success">
+                            <i class="fas fa-calendar me-2"></i>Horários
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Você ainda não possui turmas atribuídas.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

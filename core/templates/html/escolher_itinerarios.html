@@ -1,0 +1,86 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Escolha seus Itinerários Formativos</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="turma" class="form-label">Selecione sua Turma</label>
+                            <select class="form-select" id="turma" name="turma" required>
+                                <option value="">Selecione uma turma</option>
+                                {% for turma in turmas %}
+                                <option value="{{ turma.id }}">{{ turma }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4>Itinerários Disponíveis</h4>
+                            <p class="text-muted">Selecione pelo menos um itinerário formativo:</p>
+                            
+                            <div class="row">
+                                {% for itinerario in itinerarios %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" 
+                                                       name="itinerarios" value="{{ itinerario.id }}" 
+                                                       id="itinerario_{{ itinerario.id }}">
+                                                <label class="form-check-label" for="itinerario_{{ itinerario.id }}">
+                                                    <strong>{{ itinerario.nome }}</strong>
+                                                    <br>
+                                                    <small class="text-muted">
+                                                        {{ itinerario.get_area_display }}
+                                                        <br>
+                                                        Carga horária: {{ itinerario.carga_horaria }}h
+                                                    </small>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="col-12">
+                                    <p class="text-center">Nenhum itinerário disponível no momento.</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'login_discente' %}" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Confirmar Escolhas</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informações Importantes</h5>
+                </div>
+                <div class="card-body">
+                    <p>Os Itinerários Formativos representam 40% da carga horária total do Ensino Médio.</p>
+                    <p>Você pode escolher:</p>
+                    <ul>
+                        <li>Um ou mais itinerários</li>
+                        <li>Diferentes áreas do conhecimento</li>
+                        <li>Formação técnica e profissional</li>
+                    </ul>
+                    <p>Suas escolhas devem ser feitas considerando seu projeto de vida e interesses profissionais.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

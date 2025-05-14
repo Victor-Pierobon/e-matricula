@@ -1,0 +1,56 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Gerenciar Componentes Curriculares</h2>
+    
+    <div class="mb-4">
+        <a href="{% url 'adicionar_componente' %}" class="btn btn-primary">
+            Adicionar Novo Componente
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Componentes Cadastrados</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Área</th>
+                                    <th>Tipo</th>
+                                    <th>Carga Horária</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for componente in componentes %}
+                                <tr>
+                                    <td>{{ componente.nome }}</td>
+                                    <td>{{ componente.get_area_display }}</td>
+                                    <td>{{ componente.get_tipo_display }}</td>
+                                    <td>{{ componente.carga_horaria }}h</td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-info">Editar</a>
+                                        <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">Nenhum componente cadastrado.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

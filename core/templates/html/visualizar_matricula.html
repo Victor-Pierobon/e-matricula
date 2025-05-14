@@ -1,0 +1,84 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Minha Matrícula</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Informações da Matrícula</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Turma:</strong> {{ matricula.turma }}</p>
+                            <p><strong>Série:</strong> {{ matricula.turma.serie }}</p>
+                            <p><strong>Data da Matrícula:</strong> {{ matricula.data_matricula|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4>Itinerários Escolhidos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for itinerario in matricula.itinerarios_escolhidos.all %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ itinerario.nome }}</h5>
+                                    <p class="card-text">
+                                        <strong>Área:</strong> {{ itinerario.get_area_display }}<br>
+                                        <strong>Carga Horária:</strong> {{ itinerario.carga_horaria }}h
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12">
+                            <p class="text-center">Nenhum itinerário escolhido.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ações Disponíveis</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'escolher_itinerarios' %}" class="btn btn-primary w-100 mb-2">
+                        Alterar Itinerários
+                    </a>
+                    <a href="{% url 'login_discente' %}" class="btn btn-secondary w-100">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5>Informações Importantes</h5>
+                </div>
+                <div class="card-body">
+                    <p>Você pode alterar seus itinerários a qualquer momento, desde que respeite:</p>
+                    <ul>
+                        <li>A disponibilidade de vagas</li>
+                        <li>Os horários das aulas</li>
+                        <li>O limite de carga horária</li>
+                    </ul>
+                    <p>Em caso de dúvidas, procure a coordenação.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

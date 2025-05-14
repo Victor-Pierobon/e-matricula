@@ -1,54 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="discente-painel.css">
-</head>
-<body>
-    <div class="sidebar">
-        <ul>
-        
-            <li><a href="#">  <img src="assets/Icone Inicio2.png" alt="Inicio" class="ativar" cl></a></li>
-            <li><a href="instituição.html"> <img src="assets/Icone Instituição.png" alt="Instituição"></a></li>
-            <li><a href="docente.html"> <img src="assets/Icone Docente.png" alt="Docente"></a></li>
-            <li><a href="login-discente.html" id="link-discente"><img src="assets/Icone Discente.png" alt="Discente"></a></li>
-            <li><a href="#"><img src="assets/Icone Sobre.png" alt="Sobre"></a></li>
-            <li><a href="#"><img src="assets/Icone Contato.png" alt="Contato"></a></li>
-        </ul>
+{% extends 'html/base.html' %}
+
+{% block title %}Painel do Discente{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-1">Painel do Discente</h1>
+            <p class="text-muted">Bem-vindo(a), {{ user.discente.nome }}</p>
+        </div>
+        <div>
+            <a href="{% url 'escolher_itinerarios' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Escolher Itinerários
+            </a>
+        </div>
     </div>
 
-    <nav class="toposidebar">
-        <ul>
-            <li><a href="#">Minhas Matrículas</a></li>
-            <li><a href="#">Dados cadastrais</a></li>
-            <li><a href="#">Suporte TI</a></li>
-        </ul>
-        <img src="assets/Logo .png" alt="Logo e-Matrícula" class="logo-topo">
-    </nav>
-    
-    <div class="conteudo-principal">
-        <div class="cards">
-            <div class="card">
-                <h2>Grade Horária</h2>
-                <img src="" alt="Grade Horária">
-                <p>Veja como está sua Grade Horária!</p>
+    <!-- Cards de Resumo -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Aulas Hoje</h6>
+                            <h3 class="mb-0">{{ aulas_hoje }}</h3>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-calendar-day text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h2>Matérias obrigatórias</h2>
-                <img src="" alt="Matérias Obrigatórias">
-                <p>Consulte a disponibilidade de dias, horários e professores das Matérias Obrigatórias</p>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Componentes</h6>
+                            <h3 class="mb-0">{{ total_componentes }}</h3>
+                        </div>
+                        <div class="bg-success bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-book text-success fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h2>Itinerários Formativos</h2>
-                <img src="" alt="Itinerários Formativos">
-                <p>Consulte a disponibilidade de dias, horários e professores dos Itinerários Formativos</p>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Itinerários</h6>
+                            <h3 class="mb-0">{{ total_itinerarios }}</h3>
+                        </div>
+                        <div class="bg-info bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-road text-info fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Carga Horária</h6>
+                            <h3 class="mb-0">{{ carga_horaria_total }}h</h3>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-clock text-warning fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-        
-    
-    
-</body>
-</html>
+
+    <!-- Aulas de Hoje e Próximas -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Aulas de Hoje</h5>
+                    <div class="list-group list-group-flush">
+                        {% for aula in aulas_hoje_list %}
+                        <div class="list-group-item px-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">{{ aula.componente.nome }}</h6>
+                                    <small class="text-muted">{{ aula.turma.nome }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-primary">{{ aula.horario_inicio|time:"H:i" }} - {{ aula.horario_fim|time:"H:i" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center mb-0">Nenhuma aula agendada para hoje.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Próximas Aulas</h5>
+                    <div class="list-group list-group-flush">
+                        {% for aula in proximas_aulas %}
+                        <div class="list-group-item px-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">{{ aula.componente.nome }}</h6>
+                                    <small class="text-muted">{{ aula.turma.nome }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-info">{{ aula.data|date:"d/m" }} {{ aula.horario_inicio|time:"H:i" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center mb-0">Nenhuma aula agendada.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meus Itinerários -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Meus Itinerários</h5>
+            <div class="row g-4">
+                {% for itinerario in itinerarios %}
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ itinerario.nome }}</h6>
+                            <p class="card-text text-muted">{{ itinerario.descricao }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">{{ itinerario.carga_horaria }}h</span>
+                                <small class="text-muted">{{ itinerario.area }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-muted text-center mb-0">Nenhum itinerário escolhido.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Minha Grade -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Minha Grade</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Professor</th>
+                            <th>Turma</th>
+                            <th>Horário</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for componente in grade %}
+                        <tr>
+                            <td>{{ componente.nome }}</td>
+                            <td>{{ componente.professor }}</td>
+                            <td>{{ componente.turma }}</td>
+                            <td>{{ componente.horario }}</td>
+                            <td>
+                                <span class="badge bg-{{ componente.tipo_class }}">
+                                    {{ componente.tipo }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhum componente encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

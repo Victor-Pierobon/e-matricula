@@ -1,53 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docente</title>
-    <link rel="stylesheet" href="/static/css/docente.css">
-</head>
-<body>
-    <div class="sidebar">
-        <ul>
-            <li><a href="{% url 'index' %}">  <img src="/static/assets/Icone Inicio2.png" alt="Inicio" class="ativar" cl></a></li>
-            <li><a href="{% url 'instituicao' %}"> <img src="/static/assets/Icone Instituição.png" alt="Instituição"></a></li>
-            <li><a href="{% url 'docente' %}" id="link-docente"><img src="/static/assets/Icone Docente.png" alt="Docente"></a></li>
-            <li><a href="{% url 'login_discente' %}"> <img src="/static/assets/Icone Discente.png" alt="Discente"></a></li>
-            <li><a href="#"><img src="/static/assets/Icone Sobre.png" alt="Sobre"></a></li>
-            <li><a href="#"><img src="/static/assets/Icone Contato.png" alt="Contato"></a></li>
-        </ul>
-    </div>
-    <div class="conteudo-principal">
-        <header>
-            <div class="conteiner">
-                <img class="logo" src="/static/assets/Logo .png" alt="Logo e-Matrícula">
-                <div class="texto">
-                    <h1>e-Matrícula</h1>
-                    <p>Software para gerenciar matrículas alinhado ao Novo Ensino Médio, facilitando a organização curricular e a escolha de itinerários formativos.</p>
-                </div>
-            </div>
-        </header>
-        <div class="login-box">
-            <h2>Login da(o) Docente</h2>
-        
-            <label for="matricula">Matrícula</label>
-            <input type="text" id="matricula" placeholder="Ex : xxxxxxxx">
-    
-            <label for="senha">Senha</label>
-            <input type="password" id="senha">
-    
-            <div class="links">
-                <a href="#">Esqueci à senha</a>
-                <span>|</span>
-                <a href="#">Não possuo cadastro</a>
-            </div>
-    
-            <button>Entrar</button>
-            
+{% extends 'html/base.html' %}
+
+{% block title %}Painel do Docente{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-1">Painel do Docente</h1>
+            <p class="text-muted">Bem-vindo(a), {{ user.docente.user.get_full_name }}</p>
+        </div>
+        <div>
+            <a href="{% url 'minhas_aulas' %}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Nova Aula
+            </a>
         </div>
     </div>
-    <div class="desenho">
-        <img src="/static/assets/Desenho docente.png" alt="desenho">
+
+    <!-- Cards de Resumo -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Turmas Ativas</h6>
+                            <h3 class="mb-0">{{ total_turmas }}</h3>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-chalkboard text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total de Alunos</h6>
+                            <h3 class="mb-0">{{ total_alunos }}</h3>
+                        </div>
+                        <div class="bg-success bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-users text-success fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Componentes</h6>
+                            <h3 class="mb-0">{{ total_componentes }}</h3>
+                        </div>
+                        <div class="bg-info bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-book text-info fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Aulas Hoje</h6>
+                            <h3 class="mb-0">{{ aulas_hoje }}</h3>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-calendar-day text-warning fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+    <!-- Aulas de Hoje -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Aulas de Hoje</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Horário</th>
+                            <th>Componente</th>
+                            <th>Turma</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aula in aulas_hoje_list %}
+                        <tr>
+                            <td>{{ aula.hora_inicio|time:"H:i" }} - {{ aula.hora_fim|time:"H:i" }}</td>
+                            <td>{{ aula.componente.nome }}</td>
+                            <td>{{ aula.turma.nome }}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhuma aula para hoje.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Próximas Aulas -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Próximas Aulas</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Horário</th>
+                            <th>Componente</th>
+                            <th>Turma</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for aula in proximas_aulas %}
+                        <tr>
+                            <td>{{ aula.get_dia_semana_display }}</td>
+                            <td>{{ aula.hora_inicio|time:"H:i" }} - {{ aula.hora_fim|time:"H:i" }}</td>
+                            <td>{{ aula.componente.nome }}</td>
+                            <td>{{ aula.turma.nome }}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhuma aula agendada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minhas Turmas -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-4">Minhas Turmas</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Turma</th>
+                            <th>Série</th>
+                            <th>Alunos</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for turma in turmas %}
+                        <tr>
+                            <td>{{ turma.nome }}</td>
+                            <td>{{ turma.serie }}</td>
+                            <td>{{ turma.total_alunos }}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhuma turma encontrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

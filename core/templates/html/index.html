@@ -1,46 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <div class="sidebar">
-        <ul>
-            <li><a href="#">  <img src="/static/assets/Icone Inicio2.png" alt="Inicio" class="ativar" cl></a></li>
-            <li><a href="{% url 'instituicao' %}"> <img src="/static/assets/Icone Instituição.png" alt="Instituição"></a></li>
-            <li><a href="{% url 'docente' %}"> <img src="/static/assets/Icone Docente.png" alt="Docente"></a></li>
-            <li><a href="{% url 'login_discente' %}" id="link-discente"><img src="/static/assets/Icone Discente.png" alt="Discente"></a></li>
-            <li><a href="#"><img src="/static/assets/Icone Sobre.png" alt="Sobre"></a></li>
-            <li><a href="#"><img src="/static/assets/Icone Contato.png" alt="Contato"></a></li>
-        </ul>
-    </div>
-    <div class="conteudo-principal">
-        <header>
-            <div class="conteiner">
-                <img class="logo" src="/static/assets/Logo .png" alt="Logo e-Matrícula">
-                <div class="texto">
-                    <h1>Bem-vindo(a) ao e-Matrícula</h1>
-                    <p>Software para gerenciar matrículas alinhado ao Novo Ensino Médio, facilitando a organização curricular e a escolha de itinerários formativos.</p>
+{% extends 'html/base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Hero Section -->
+    <div class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold">E-Matrícula</h1>
+                    <p class="lead">Sistema de Gestão do Novo Ensino Médio</p>
+                    <p class="mb-4">Gerencie sua instituição, acompanhe o desenvolvimento dos alunos e facilite a escolha dos itinerários formativos.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'login' %}" class="btn btn-light btn-lg">Entrar</a>
+                        <a href="#como-funciona" class="btn btn-outline-light btn-lg">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/600x400" alt="Educação" class="img-fluid rounded shadow">
                 </div>
             </div>
-        </header>
-        <div class="buttons">
-            <a href="{% url 'instituicao' %}" class="botao">
-                <img src="/static/assets/Icone instituição sem texto.png" alt="Instituição">Instituição
-            </a>
-            <a href="{% url 'docente' %}" class="botao">
-                <img src="/static/assets/Icone docente sem texto.png" alt="Docente">Docente
-            </a>
-            <a href="{% url 'login_discente' %}" class="botao">
-                <img src="/static/assets/Icone discente sem texto.png" alt="Discente">Discente
-            </a>
-        </div>
-        <div class="logo-novo-ensino-medio">
-            <img src="/static/assets/Logo novo ensino medio.jpeg" alt="logo-novo-ensino-medio">
         </div>
     </div>
-</body>
-</html>
+
+    <!-- Como Funciona Section -->
+    <div id="como-funciona" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Como Funciona</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-school fa-3x text-primary mb-3"></i>
+                            <h3 class="h4">Para Instituições</h3>
+                            <p>Gerencie seus componentes curriculares, turmas e acompanhe o desenvolvimento dos alunos.</p>
+                            <a href="{% url 'register_instituicao' %}" class="btn btn-outline-primary">Cadastrar Instituição</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chalkboard-teacher fa-3x text-primary mb-3"></i>
+                            <h3 class="h4">Para Docentes</h3>
+                            <p>Acompanhe seus alunos, gerencie suas aulas e contribua para o desenvolvimento educacional.</p>
+                            <a href="{% url 'register_docente' %}" class="btn btn-outline-primary">Cadastrar Docente</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-graduate fa-3x text-primary mb-3"></i>
+                            <h3 class="h4">Para Discentes</h3>
+                            <p>Escolha seus itinerários formativos e acompanhe seu desenvolvimento educacional.</p>
+                            <a href="{% url 'register_discente' %}" class="btn btn-outline-primary">Cadastrar Discente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Novo Ensino Médio Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Novo Ensino Médio</h2>
+                    <p class="lead">Uma nova forma de aprender e se desenvolver</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            Base Nacional Comum Curricular (BNCC)
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            Itinerários Formativos personalizados
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            Projeto de vida integrado ao currículo
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            Formação técnica e profissional
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h3 class="h4 mb-4">Distribuição da Carga Horária</h3>
+                            <div class="mb-4">
+                                <h5 class="mb-3">BNCC (60%)</h5>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%">60%</div>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-3">Itinerários Formativos (40%)</h5>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%">40%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
